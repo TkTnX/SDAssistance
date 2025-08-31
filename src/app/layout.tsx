@@ -52,7 +52,7 @@ export default function RootLayout({
 		<html suppressHydrationWarning={true} lang='en'>
 			<body className={`${GothamPro.className} antialiased`}>
 				<Header />
-				{children}
+				<main>{children}</main>
 			</body>
 		</html>
 	)

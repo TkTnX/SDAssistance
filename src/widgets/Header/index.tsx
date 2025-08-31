@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import { HeaderMenu } from './components'
 import { Search } from '@/features'
+import { LinkMain } from '@/shared/components'
 
 export const Header = () => {
 	return (
@@ -29,12 +30,7 @@ export const Header = () => {
 			<div className='hidden items-center gap-5 lg:flex'>
 				<Search />
 
-				<Link
-					className='bg-osnovnoy flex h-[60px] w-[180px] items-center justify-center text-center font-bold text-white hover:opacity-80'
-					href={'/auth/login'}
-				>
-					Войти
-				</Link>
+				<LinkMain href={'/auth/login'} text='Войти' />
 			</div>
 		</header>
 	)
