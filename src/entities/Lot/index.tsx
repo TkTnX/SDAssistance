@@ -1,41 +1,62 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export const Lot = () => {
+import { CAR_DRIVE, CAR_ENGINE_TYPES, CAR_GEARBOX } from '@/shared/constants'
+import { findSettings } from '@/shared/helpers'
+import { ILot } from '@/shared/types'
+
+type Props = {
+	lot: ILot
+}
+
+export const Lot = ({ lot }: Props) => {
 	return (
-		<Link href={'/lots/2112-0806'} className=''>
+		<Link href={`/lots/${lot.id}`} className=''>
 			<div className='relative h-[185px] w-full lg:h-[205px]'>
 				<Image
 					className='object-cover'
-					src={'/images/lot.jpg'}
-					alt='Lot'
+					src={lot.photos[0]}
+					alt={lot.name}
 					fill
 				/>
-				<p className='px-2.5 py-1.5 font-bold'>1 405 000.00</p>
+				{/* TODO: format price (look at layout) */}
+				<p className='px-2.5 py-1.5 font-bold'>{lot.price} ₽</p>
 			</div>
 			<div className='bg-[#f0f2f5] px-5 py-4'>
-				<h4 className='font-bold'>Hyundai Tucson, 2017 г</h4>
+				<h4 className='font-bold'>
+					{lot.name}, {lot.year} г
+				</h4>
 				<ul className='mt-2 text-xs'>
 					<li>
-						Лот: <span className='font-bold'>№2112-0806</span>
+						Лот: <span className='font-bold'>№{lot.id}</span>
 					</li>
 					<li>
 						Начальная цена:{' '}
-						<span className='font-bold'>1 405 000.00</span>
+						{/* TODO: format price (look at layout) */}
+						<span className='font-bold'>{lot.price} ₽</span>
 					</li>
 				</ul>
-				<ul className='mt-2 flex flex-col flex-wrap gap-y-2 text-xs lg:flex-row lg:items-center lg:justify-center xl:flex-nowrap'>
+				<ul className='mt-2 flex flex-col flex-wrap gap-y-2 text-xs lg:flex-row lg:items-center lg:justify-center'>
 					<li className='border-r-osnovnoy border-b text-nowrap lg:border-r lg:border-b-0 lg:pr-6'>
-						12468 км
+						{lot.mileage} км
 					</li>
 					<li className='border-r-osnovnoy border-b text-nowrap lg:border-r lg:border-b-0 lg:px-6'>
-						АКПП
+						{findSettings(
+							CAR_GEARBOX,
+							lot.gearbox as unknown as string
+						)}
 					</li>
 					<li className='border-r-osnovnoy border-b text-nowrap lg:border-r lg:border-b-0 lg:px-6'>
-						Передний
+						{findSettings(
+							CAR_DRIVE,
+							lot.drive as unknown as string
+						)}
 					</li>
 					<li className='border-b text-nowrap lg:border-b-0 lg:pl-6'>
-						Дизель
+						{findSettings(
+							CAR_ENGINE_TYPES,
+							lot.engineType as unknown as string
+						)}
 					</li>
 				</ul>
 			</div>

@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
-import { cn } from '@/lib/utils'
-
 import {
 	Sheet,
 	SheetContent,
@@ -13,6 +11,7 @@ import {
 	SheetTrigger
 } from '@/shared/components'
 import { NAVBAR_LINKS } from '@/shared/constants'
+import { cn } from '@/shared/lib/utils'
 
 type Props = {
 	children: React.ReactNode

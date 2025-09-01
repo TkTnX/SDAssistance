@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Lot {
+  id String @id @default(uuid())
+
+  // DOCS INFO
+  insurance    EInsurance
+  region       String
+  city         String
+  price        Int
+  currentPrice Int?
+  // CAR INFO
+  vin          String
+  frame        String
+  carType      ECarTypes
+  year         Int
+  bodyType     ECarBodyTypes
+  color        String
+  mileage      Int
+  passport     String
+  engineType   EEngineTypes
+  volume       Int
+  power        Int
+  drive        EDrive
+  gearbox      EGearbox
+  comment      String?
+  photos       String[]
+  name         String 
+
+  seller   User   @relation(fields: [sellerId], references: [id], name: "seller")
+  sellerId String
+
+  auctioneer   User?   @relation(fields: [auctioneerId], references: [id], name: "auctioneer")
+  auctioneerId String?
+
+  createdAt DateTime @default(now())
+  endsAt    DateTime
+}
+
+model User {
+  id String @id @default(uuid())
+
+  name  String
+  email String
+  password String
+  phone String
+  birthday DateTime?
+  avatar String?
+
+
+  role EUserRoles
+  
+  lots  Lot[] @relation(name: "seller")
+  bids  Lot[] @relation(name: "auctioneer")
+}
+
+enum EInsurance {
+  OSAGO
+  CASCO
+}
+
+enum ECarTypes {
+  passenger
+  commercial
+  motorcycle
+  cargo
+  trailer
+  bus
+  special
+}
+
+enum ECarBodyTypes {
+  jeep
+  coupe
+  hatchback
+  sedan
+  offroad
+  van
+  cabrio
+  pickup
+}
+
+enum EEngineTypes {
+  petrol
+  diesel
+  electric
+  hybrid
+}
+
+enum EDrive {
+  front
+  rear
+  all
+}
+
+enum EGearbox {
+  automatic
+  manual
+}
+
+enum EUserRoles {
+  seller
+  auctioneer
+}

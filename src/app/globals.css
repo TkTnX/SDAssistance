@@ -183,3 +183,7 @@ button {
 .swiper-button-prev::after {
 	transform: rotate(180deg) !important;
 }
+
+.error {
+	@apply text-red-500 text-center py-10 text-xl;
+}

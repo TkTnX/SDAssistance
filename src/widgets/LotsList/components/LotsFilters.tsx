@@ -3,10 +3,9 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { cn } from '@/lib/utils'
-
-import { CAR_TYPES, SORT_BY } from '@/shared/constants'
 import { SelectMain } from '@/shared/components'
+import { CAR_TYPES, SORT_BY } from '@/shared/constants'
+import { cn } from '@/shared/lib/utils'
 
 export const LotsFilters = () => {
 	const pathname = usePathname()
@@ -58,7 +57,7 @@ export const LotsFilters = () => {
 				</div>
 			</div>
 
-			<div className='flex  sm:hidden'>
+			<div className='flex sm:hidden'>
 				<SelectMain items={CAR_TYPES} placeholder='Вид' />
 				<SelectMain items={SORT_BY} placeholder='Сортировка' />
 			</div>

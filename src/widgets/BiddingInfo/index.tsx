@@ -3,7 +3,7 @@ import Image from 'next/image'
 export const BiddingInfo = () => {
 	return (
 		<section className='mt-16 bg-[#eceef2]'>
-			<div className='container flex flex-col-reverse items-center gap-5 pb-4 lg:flex-row lg:pt-12 lg:pb-0'>
+			<div className='container flex flex-col-reverse items-center gap-5 pb-4 lg:flex-row lg:pt-12'>
 				<div className='max-w-[680px]'>
 					<h2 className='text-2xl font-bold sm:text-3xl'>
 						Специализированные торги
