@@ -25,16 +25,18 @@ export const Lot = () => {
 					</li>
 				</ul>
 				<ul className='mt-2 flex flex-col flex-wrap gap-y-2 text-xs lg:flex-row lg:items-center lg:justify-center xl:flex-nowrap'>
-					<li className='border-r-osnovnoy border-b text-nowrap lg:border-r lg:pr-6'>
+					<li className='border-r-osnovnoy border-b text-nowrap lg:border-r lg:border-b-0 lg:pr-6'>
 						12468 км
 					</li>
-					<li className='border-r-osnovnoy border-b text-nowrap lg:border-r lg:px-6'>
+					<li className='border-r-osnovnoy border-b text-nowrap lg:border-r lg:border-b-0 lg:px-6'>
 						АКПП
 					</li>
-					<li className='border-r-osnovnoy border-b text-nowrap lg:border-r lg:px-6'>
+					<li className='border-r-osnovnoy border-b text-nowrap lg:border-r lg:border-b-0 lg:px-6'>
 						Передний
 					</li>
-					<li className='border-b text-nowrap lg:pl-6'>Дизель</li>
+					<li className='border-b text-nowrap lg:border-b-0 lg:pl-6'>
+						Дизель
+					</li>
 				</ul>
 			</div>
 		</Link>

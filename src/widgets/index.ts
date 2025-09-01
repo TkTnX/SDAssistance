@@ -1,3 +1,6 @@
 export * from "./Header"
 export * from "./Hero"
 export * from "./LotsList"
+export * from "./BiddingInfo"
+export * from "./Instruction"
+export * from "./Footer"

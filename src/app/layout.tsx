@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 
 import './globals.css'
-import { Header } from '@/widgets'
+import { Footer, Header } from '@/widgets'
 
 const GothamPro = localFont({
 	src: [
@@ -53,6 +53,7 @@ export default function RootLayout({
 			<body className={`${GothamPro.className} antialiased`}>
 				<Header />
 				<main>{children}</main>
+				<Footer />
 			</body>
 		</html>
 	)
