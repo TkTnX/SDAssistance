@@ -35,8 +35,8 @@ export const CAR_TYPES = [
 
 export const SORT_BY = [
 	{
-		name: "Популярность",
-		value: "popular"
+		name: "Новое",
+		value: "createdAt-desc"
 	},
 	{
 		name: "Сначала дешевые",
@@ -47,7 +47,8 @@ export const SORT_BY = [
 		value: "price-desc"
 	},
 	{
-		name: "Только сегодня",
-		value: "today"
-	},
+		name: "Меньший пробег",
+		value: "mileage-asc"
+	}
+
 ]

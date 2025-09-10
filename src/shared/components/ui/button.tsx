@@ -8,7 +8,7 @@ export const Button = ({ className, text, ...props }: Props) => {
 	return (
 		<button
 			className={cn(
-				'bg-osnovnoy h-[60px] text-center font-bold text-white hover:opacity-80',
+				'bg-osnovnoy flex h-[60px] items-center justify-center text-center font-bold text-white hover:opacity-80',
 				className
 			)}
 			{...props}
