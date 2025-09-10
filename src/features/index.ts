@@ -1,3 +1,5 @@
 export * from "./Search"
 export * from "./LotsSort"
 export * from "./Pagination"
+export * from "./RegisterForm"
+export * from "./LoginForm"
