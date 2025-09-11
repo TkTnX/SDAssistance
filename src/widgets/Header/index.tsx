@@ -1,10 +1,10 @@
+
 import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { HeaderMenu } from './components'
+import { HeaderMenu, UserButton } from './components'
 import { Search } from '@/features'
-import { LinkMain } from '@/shared/components'
 
 export const Header = () => {
 	return (
@@ -30,7 +30,7 @@ export const Header = () => {
 			<div className='hidden items-center gap-5 lg:flex'>
 				<Search />
 
-				<LinkMain href={'/auth/login'} text='Войти' />
+				<UserButton />
 			</div>
 		</header>
 	)

@@ -1,15 +1,18 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ChooseRole } from './components/ChooseRole'
 import { EUserRoles } from '@/generated/prisma'
 import { Button, Form, FormInput } from '@/shared/components'
+import { axiosInstance } from '@/shared/lib'
 import { RegisterSchema, registerSchema } from '@/shared/schemas'
 
 export const RegisterForm = () => {
+	const router = useRouter()
 	const [activeRole, setActiveRole] = useState<EUserRoles>(
 		EUserRoles.auctioneer
 	)
@@ -21,7 +24,16 @@ export const RegisterForm = () => {
 	})
 
 	const onSubmit = async (data: RegisterSchema) => {
-		console.log(data)
+		const res = await axiosInstance.post('/auth/register', {
+			...data,
+			role: activeRole
+		})
+
+		if (res.data.code === 201) {
+			router.push('/auth/login')
+		}
+
+		console.log(res.data.message)
 	}
 
 	return (

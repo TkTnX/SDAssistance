@@ -1,11 +1,18 @@
-'use client'
+'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
 
-import { Button, Form, FormInput } from '@/shared/components'
-import { LoginSchema, loginSchema } from '@/shared/schemas'
+
+
+import { Button, Form, FormInput } from '@/shared/components';
+import { LoginSchema, loginSchema } from '@/shared/schemas';
+import { isAxiosError } from 'axios';
+
+
+
+
 
 export const LoginForm = () => {
 	const form = useForm<LoginSchema>({
@@ -13,7 +20,26 @@ export const LoginForm = () => {
 	})
 
 	const onSubmit = async (data: LoginSchema) => {
-		console.log(data)
+		try {
+			const res = await signIn('credentials', {
+				...data,
+				redirect: false,
+				callbackUrl: '/'
+			})
+
+			if (res?.status === 200) {
+				console.log('Успешный вход!')
+			} else {
+				console.log('Ошибка при входе')
+			}
+		} catch (error) {
+			console.log(error)
+			if (isAxiosError(error)) {
+				if (error.response) {
+					console.log(error.response.data)
+				}
+			}
+		}
 	}
 
 	return (

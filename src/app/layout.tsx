@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
+import { SessionProvider } from 'next-auth/react'
 import localFont from 'next/font/local'
 
 import './globals.css'
+import { Providers } from '@/shared/components'
 import { Footer, Header } from '@/widgets'
 
 const GothamPro = localFont({
@@ -50,11 +52,13 @@ export default function RootLayout({
 }>) {
 	return (
 		<html suppressHydrationWarning={true} lang='en'>
-			<body className={`${GothamPro.className} antialiased`}>
-				<Header />
-				<main>{children}</main>
-				<Footer />
-			</body>
+			<Providers>
+				<body className={`${GothamPro.className} antialiased`}>
+					<Header />
+					<main>{children}</main>
+					<Footer />
+				</body>
+			</Providers>
 		</html>
 	)
 }
