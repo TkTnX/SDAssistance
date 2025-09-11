@@ -1,23 +1,20 @@
-'use client';
+'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
-import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { isAxiosError } from 'axios'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
-
-
-import { Button, Form, FormInput } from '@/shared/components';
-import { LoginSchema, loginSchema } from '@/shared/schemas';
-import { isAxiosError } from 'axios';
-
-
-
-
+import { Button, Form, FormInput } from '@/shared/components'
+import { LoginSchema, loginSchema } from '@/shared/schemas'
 
 export const LoginForm = () => {
 	const form = useForm<LoginSchema>({
 		resolver: zodResolver(loginSchema)
 	})
+	const router = useRouter()
 
 	const onSubmit = async (data: LoginSchema) => {
 		try {
@@ -28,15 +25,16 @@ export const LoginForm = () => {
 			})
 
 			if (res?.status === 200) {
-				console.log('Успешный вход!')
+				toast.success('Успешный вход')
+				router.push('/profile')
 			} else {
-				console.log('Ошибка при входе')
+				toast.error('Ошибка при входе в аккаунт')
 			}
 		} catch (error) {
 			console.log(error)
 			if (isAxiosError(error)) {
 				if (error.response) {
-					console.log(error.response.data)
+					toast.error(error.response.data)
 				}
 			}
 		}
@@ -64,7 +62,12 @@ export const LoginForm = () => {
 					label='Пароль'
 				/>
 
-				<Button className='mt-9' type='submit' text='Войти' />
+				<Button
+					disabled={!form.formState.isValid}
+					className='mt-9'
+					type='submit'
+					text='Войти'
+				/>
 			</form>
 		</Form>
 	)

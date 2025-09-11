@@ -11,7 +11,8 @@ export async function POST(req: NextRequest) {
 			return NextResponse.json({
 				message: 'Данные не получены',
 				code: 404
-			})
+            })
+        
 
 		const existingUser = await prisma.user.findFirst({
 			where: {
@@ -26,7 +27,10 @@ export async function POST(req: NextRequest) {
 			})
 
 		const salt = await bcrypt.genSalt(10)
-		const hashedPassword = await bcrypt.hash(body.password, salt)
+        const hashedPassword = await bcrypt.hash(body.password, salt)
+        
+        const formattedPhone = body.phone.split('')
+        console.log(formattedPhone)
 
 		const newUser = await prisma.user.create({
 			data: {

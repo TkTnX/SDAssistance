@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { SessionProvider } from 'next-auth/react'
 import localFont from 'next/font/local'
+import { ToastContainer } from 'react-toastify'
 
 import './globals.css'
 import { Providers } from '@/shared/components'
@@ -57,6 +57,7 @@ export default function RootLayout({
 					<Header />
 					<main>{children}</main>
 					<Footer />
+					<ToastContainer />
 				</body>
 			</Providers>
 		</html>

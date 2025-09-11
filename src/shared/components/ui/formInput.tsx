@@ -8,7 +8,8 @@ import {
 } from '.'
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form'
 
-interface Props<TFormValues extends FieldValues> {
+interface Props<TFormValues extends FieldValues>
+	extends Omit<React.ComponentProps<'input'>, 'form'> {
 	form: UseFormReturn<TFormValues>
 	name: Path<TFormValues>
 	label: string
@@ -23,7 +24,8 @@ export const FormInput = <TFormValues extends FieldValues>({
 	label,
 	className,
 	placeholder,
-	type = 'text'
+	type = 'text',
+	...props
 }: Props<TFormValues>) => {
 	return (
 		<FormField
@@ -38,6 +40,7 @@ export const FormInput = <TFormValues extends FieldValues>({
 							className={className}
 							placeholder={placeholder}
 							{...field}
+							{...props}
 							value={field.value ?? ''}
 						/>
 					</FormControl>

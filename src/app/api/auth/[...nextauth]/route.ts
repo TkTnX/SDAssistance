@@ -29,7 +29,9 @@ const handler = NextAuth({
 
 				const existingUser = await prisma.user.findFirst({
 					where: {
-						[isEmail ? 'email' : 'phone']: credentials.emailOrPhone
+						[isEmail ? 'email' : 'phone']: isEmail
+							? credentials.emailOrPhone
+							: credentials.emailOrPhone.replace(/\D/g, '')
 					}
 				})
 

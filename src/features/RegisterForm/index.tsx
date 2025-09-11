@@ -1,9 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMask } from '@react-input/mask'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { ChooseRole } from './components/ChooseRole'
 import { EUserRoles } from '@/generated/prisma'
@@ -12,10 +14,16 @@ import { axiosInstance } from '@/shared/lib'
 import { RegisterSchema, registerSchema } from '@/shared/schemas'
 
 export const RegisterForm = () => {
+	const phoneRef = useMask({
+		mask: '+7 (___) ___-__-__',
+		replacement: { _: /\d/ }
+	})
 	const router = useRouter()
+	const [isAgree, setIsAgree] = useState(false)
 	const [activeRole, setActiveRole] = useState<EUserRoles>(
 		EUserRoles.auctioneer
 	)
+
 	const form = useForm<RegisterSchema>({
 		resolver: zodResolver(registerSchema),
 		defaultValues: {
@@ -24,16 +32,20 @@ export const RegisterForm = () => {
 	})
 
 	const onSubmit = async (data: RegisterSchema) => {
+		const formattedPhone = data.phone.replace(/\D/g, '')
+
 		const res = await axiosInstance.post('/auth/register', {
 			...data,
+			phone: formattedPhone,
 			role: activeRole
 		})
 
 		if (res.data.code === 201) {
+			toast.success(res.data.message)
 			router.push('/auth/login')
 		}
 
-		console.log(res.data.message)
+		if (res.data.code !== 201) toast.error(res.data.message)
 	}
 
 	return (
@@ -50,6 +62,7 @@ export const RegisterForm = () => {
 				/>
 				{/* todo: маска для номера */}
 				<FormInput
+					ref={phoneRef}
 					placeholder='Введите ваш номер телефона'
 					name='phone'
 					form={form}
@@ -77,6 +90,7 @@ export const RegisterForm = () => {
 
 				<label className='mt-9 flex items-center gap-4'>
 					<input
+						onClick={() => setIsAgree(!isAgree)}
 						className='accent-osnovnoy h-8 w-8'
 						type='checkbox'
 					/>
@@ -85,7 +99,12 @@ export const RegisterForm = () => {
 					</p>
 				</label>
 
-				<Button className='mt-9' type='submit' text='Регистрация' />
+				<Button
+					disabled={!isAgree}
+					className='mt-9'
+					type='submit'
+					text='Регистрация'
+				/>
 			</form>
 		</Form>
 	)
