@@ -10,3 +10,4 @@ export {
 	CAR_BODY_TYPES,
 	CAR_GEARBOX
 } from './car.constants'
+export * from "./create-lot.constants"
