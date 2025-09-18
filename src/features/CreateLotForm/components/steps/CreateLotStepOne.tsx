@@ -12,10 +12,23 @@ export const CreateLotStepOne = ({ step, currentStep }: Props) => {
 	if (step !== currentStep) return null
 	return (
 		<>
-			<LotInput label='VIN номер' required={true} />
-			<LotInput label='Frame номер' />
-			<LotSelect label='Тип авто' required={true} items={CAR_TYPES} />
-			<LotInput required={true} label='Год выпуска' type='number' />
+			<LotInput name='name' label='Название автомобиля' required={true} />
+
+			<LotInput name='vin' label='VIN номер' required={true} />
+			<LotInput name='frame' label='Frame номер' />
+			<LotSelect
+				name='carType'
+				label='Тип авто'
+				required={true}
+				items={CAR_TYPES}
+			/>
+			<LotInput
+				name='year'
+				required={true}
+				label='Год выпуска'
+				type='number'
+			/>
+			<LotInput name='power' label='Мощность' required={true} />
 		</>
 	)
 }

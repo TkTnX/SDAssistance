@@ -40,7 +40,7 @@ export const HeroSlider = ({ activeLots }: Props) => {
 								<li>
 									Лот:{' '}
 									<span className='font-bold'>
-										№{lot.id.slice(0, 14)}
+										№{lot.id.split('-')[0]}
 									</span>
 								</li>
 								{lot.currentPrice && (

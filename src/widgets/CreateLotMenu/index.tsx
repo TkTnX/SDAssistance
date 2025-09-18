@@ -1,6 +1,7 @@
 'use client'
 
 import { Check } from 'lucide-react'
+import { useShallow } from 'zustand/react/shallow'
 
 import { LotStepButton } from '@/features'
 import { Button } from '@/shared/components'
@@ -9,7 +10,12 @@ import { cn } from '@/shared/lib'
 import { useLotStore } from '@/shared/stores'
 
 export const CreateLotMenu = () => {
-	const step = useLotStore(state => state.step)
+	const { step, onCreate } = useLotStore(
+		useShallow(state => ({
+			step: state.step,
+			onCreate: state.onCreate
+		}))
+	)
 	return (
 		<div className='flex h-auto flex-col justify-between gap-8 md:max-w-[226px]'>
 			<div className='bg-dopolnitelnyy text-text-2 flex h-full gap-10 overflow-x-auto rounded-xl py-8 pr-8 pl-7 text-sm md:flex-col'>
@@ -63,6 +69,7 @@ export const CreateLotMenu = () => {
 				)}
 				{step === LOT_STEPS.length - 1 && (
 					<Button
+						onClick={onCreate}
 						className='h-12 w-full flex-1 rounded-sm px-3.5 py-5 text-sm text-nowrap'
 						text='Запустить лот'
 					/>

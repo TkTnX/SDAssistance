@@ -1,6 +1,7 @@
 'use client';
 
 import {
+	CreateLotDocsInfo,
 	CreateLotStepOne,
 	CreateLotStepThree,
 	CreateLotStepTwo
@@ -15,9 +16,10 @@ export const CreateLotForm = () => {
 	const step = useLotStore(state => state.step)
 	return (
 		<div className='flex flex-col gap-3'>
-			<CreateLotStepOne step={0} currentStep={step} />
-			<CreateLotStepTwo step={1} currentStep={step} />
-			<CreateLotStepThree step={2} currentStep={step} />
+			<CreateLotDocsInfo step={0} currentStep={step} />
+			<CreateLotStepOne step={1} currentStep={step} />
+			<CreateLotStepTwo step={2} currentStep={step} />
+			<CreateLotStepThree step={3} currentStep={step} />
 		</div>
 	)
 }

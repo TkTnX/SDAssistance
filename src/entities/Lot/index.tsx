@@ -16,6 +16,7 @@ export const Lot = ({ lot }: Props) => {
 				<Image
 					className='object-cover'
 					src={lot.photos[0]}
+					
 					alt={lot.name}
 					fill
 				/>
@@ -28,7 +29,7 @@ export const Lot = ({ lot }: Props) => {
 				</h4>
 				<ul className='mt-2 text-xs'>
 					<li>
-						Лот: <span className='font-bold'>№{lot.id}</span>
+						Лот: <span className='font-bold'>№{lot.id.split('-')[0]}</span>
 					</li>
 					<li>
 						Начальная цена:{' '}
