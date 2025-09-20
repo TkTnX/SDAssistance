@@ -1,14 +1,15 @@
-import { getServerSession } from 'next-auth';
-import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth'
+import { NextRequest, NextResponse } from 'next/server'
 
-
-
-import { ECarBodyTypes, ECarTypes, EDrive, EEngineTypes, EGearbox, EInsurance } from '@/generated/prisma';
-import { authOptions, prisma, uploadFile } from '@/shared/lib';
-
-
-
-
+import {
+	ECarBodyTypes,
+	ECarTypes,
+	EDrive,
+	EEngineTypes,
+	EGearbox,
+	EInsurance
+} from '@/generated/prisma'
+import { authOptions, prisma, uploadFile } from '@/shared/lib'
 
 export async function POST(req: NextRequest) {
 	try {
@@ -25,7 +26,7 @@ export async function POST(req: NextRequest) {
 		endsAt.setDate(now.getDate() + 7)
 
 		const formData = await req.formData()
-		const photoFiles = formData.getAll('photos') as File[] 
+		const photoFiles = formData.getAll('photos') as File[]
 		const photos = []
 
 		const body = {
@@ -51,7 +52,6 @@ export async function POST(req: NextRequest) {
 			name: formData.get('name') as string,
 			damages: formData.get('damages') as string,
 
-			sellerId: session.userId,
 			endsAt
 		}
 
@@ -73,7 +73,12 @@ export async function POST(req: NextRequest) {
 		const lot = await prisma.lot.create({
 			data: {
 				...body,
-				photos
+				photos,
+				seller: {
+					connect: {
+						id: session.userId
+					}
+				}
 			}
 		})
 

@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { HexColorPicker } from 'react-colorful'
+
 import { LotInput } from '../lotInput'
 import { LotSelect } from '../lotSelect'
 
@@ -16,14 +19,29 @@ type Props = {
 }
 
 export const CreateLotStepTwo = ({ step, currentStep }: Props) => {
+	const [color, setColor] = useState<string>('#fff')
 	const setLotInfo = useLotStore(state => state.setLotInfo)
 	if (step !== currentStep) return null
+
+	const onColorChange = (color: string) => {
+		setLotInfo('color', color)
+		setColor(color)
+	}
+
 	return (
 		<>
-			
-			<LotSelect name='bodyType' label='Кузов' required={true} items={CAR_BODY_TYPES} />
-			{/* todo: в будущем добавить возможность выбирать цвет  */}
-			<LotInput name='color' required={true} label='Цвет' type='text' />
+			<LotSelect
+				name='bodyType'
+				label='Кузов'
+				required={true}
+				items={CAR_BODY_TYPES}
+			/>
+
+			<HexColorPicker
+				className='!h-[200px] !w-full'
+				color={String(color)}
+				onChange={onColorChange}
+			/>
 			<LotInput
 				name='mileage'
 				required={true}
@@ -49,14 +67,18 @@ export const CreateLotStepTwo = ({ step, currentStep }: Props) => {
 				label='Объем двигателя'
 				type='number'
 			/>
-			<LotSelect name='drive' label='Привод' required={true} items={CAR_DRIVE} />
+			<LotSelect
+				name='drive'
+				label='Привод'
+				required={true}
+				items={CAR_DRIVE}
+			/>
 			<LotSelect
 				name='gearbox'
 				label='Коробка передач'
 				required={true}
 				items={CAR_GEARBOX}
 			/>
-			
 
 			<Textarea
 				onChange={e => setLotInfo('comment', e.target.value)}

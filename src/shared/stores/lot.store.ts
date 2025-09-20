@@ -1,19 +1,21 @@
-import { toast } from 'react-toastify';
-import { create } from 'zustand';
+import { toast } from 'react-toastify'
+import { create } from 'zustand'
 
-
-
-import { ECarBodyTypes, ECarTypes, EDrive, EEngineTypes, EGearbox } from '@/generated/prisma';
-import { axiosInstance } from '@/shared/lib';
-
-
-
-
+import {
+	ECarBodyTypes,
+	ECarTypes,
+	EDrive,
+	EEngineTypes,
+	EGearbox,
+	EInsurance
+} from '@/generated/prisma'
+import { axiosInstance } from '@/shared/lib'
 
 type LotInfoType = {
-	region?: null | string
+	region: null | string
 	city: null | string
 	price: null | number
+	insurance: EInsurance | null
 
 	name: string | null
 	power: string | null
@@ -51,9 +53,10 @@ type Actions = {
 export const useLotStore = create<State & Actions>((set, get) => ({
 	step: 0,
 	lotInfo: {
-		region: undefined,
+		region: null,
 		city: null,
 		price: null,
+		insurance: null,
 
 		name: null,
 		power: null,
@@ -94,7 +97,11 @@ export const useLotStore = create<State & Actions>((set, get) => ({
 			const formData = new FormData()
 
 			if (Object.values(lotInfo).includes(null)) {
-				console.log(lotInfo)
+				Object.entries(lotInfo).find(([key, value]) => {
+					if (value === null) {
+						toast.error(`Заполните поле ${key}`)
+					}
+				})
 				return toast.error(
 					'Все обязательные поля должны быть заполнены! '
 				)
@@ -109,9 +116,7 @@ export const useLotStore = create<State & Actions>((set, get) => ({
 			console.log(lotInfo.photos)
 			for (let i = 0; i < lotInfo.photos.length; i++) {
 				formData.append('photos', lotInfo.photos[i])
-
 			}
-		
 
 			const { data } = await axiosInstance.post(
 				'/lots/create',
@@ -120,7 +125,8 @@ export const useLotStore = create<State & Actions>((set, get) => ({
 					headers: { 'Content-Type': 'multipart/form-data' }
 				}
 			)
-
+			toast.success('Лот успешно создан')
+			location.href = `/lots/${data.id}`
 			return data
 		} catch (error) {
 			console.log(error)

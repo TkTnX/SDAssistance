@@ -11,14 +11,12 @@ export async function GET(req: NextRequest) {
 
 		const page = Number(query.get('page') || 1)
 		const limit = Number(query.get('limit') || 9)
-		console.log(sortBy)
 
 		const allowedSortFields = ['createdAt', 'price', 'mileage']
 		let orderBy = undefined
 
 		if (sortBy) {
 			const [field, dir] = sortBy.split('-')
-			console.log({ [field]: dir === 'asc' ? 'asc' : 'desc' })
 			if (allowedSortFields.includes(field)) {
 				orderBy = { [field]: dir === 'asc' ? 'asc' : 'desc' }
 			}
@@ -30,6 +28,7 @@ export async function GET(req: NextRequest) {
 			orderBy,
 			where: {
 				name: search,
+				endsAt: { gt: new Date() },
 				...restParams
 			}
 		})
@@ -42,10 +41,11 @@ export async function GET(req: NextRequest) {
 				{ status: 404 }
 			)
 
+		const totalPages = allLots / limit
 		return NextResponse.json({
 			data: lots,
 			page: page,
-			totalPages: allLots
+			totalPages: Math.floor(totalPages < 1 ? 1 : totalPages)
 		})
 	} catch (error) {
 		console.log(error)

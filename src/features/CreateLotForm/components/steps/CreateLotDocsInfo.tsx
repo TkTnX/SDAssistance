@@ -12,9 +12,10 @@ export const CreateLotDocsInfo = ({ step, currentStep }: Props) => {
 	if (step !== currentStep) return null
 	return (
 		<>
-			<LotInput name='region' label='Регион' />
+			<LotInput required name='region' label='Регион' />
 			<LotInput required name='city' label='Город' />
 			<LotSelect
+				required
 				items={CAR_INSURANCE}
 				label='Вид страховки'
 				name='insurance'
