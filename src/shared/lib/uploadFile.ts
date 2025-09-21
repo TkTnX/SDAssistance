@@ -4,7 +4,6 @@ import { supabase } from '.';
 
 
 
-
 export async function uploadFile(file: File) {
 	const { data, error } = await supabase.storage
 		.from('uploads')

@@ -113,7 +113,6 @@ export const useLotStore = create<State & Actions>((set, get) => ({
 				}
 			})
 
-			console.log(lotInfo.photos)
 			for (let i = 0; i < lotInfo.photos.length; i++) {
 				formData.append('photos', lotInfo.photos[i])
 			}

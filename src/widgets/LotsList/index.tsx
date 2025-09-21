@@ -15,7 +15,6 @@ export const LotsList = () => {
 
 	if (error) return <p className='error'>{error}</p>
 
-	console.log(lots)
 	return (
 		<section className='mt-8'>
 			<LotsFilters />

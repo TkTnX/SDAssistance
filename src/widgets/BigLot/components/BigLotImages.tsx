@@ -1,0 +1,34 @@
+import Image from 'next/image'
+
+export const BigLotImages = ({ images }: { images: string[] }) => {
+	return (
+		<div className='max-w-[540px] flex-1'>
+			<div className='relative h-80 w-full'>
+				<Image
+					src={images[0]}
+					alt='lot image'
+					className='object-cover rounded-lg'
+					fill
+				/>
+			</div>
+			<div className='mt-1 grid grid-cols-4 items-center gap-1'>
+				{images.slice(1, 9).map((image, index) => (
+					<div className='relative h-[74px] w-full' key={index}>
+						{index === 7 && (
+							// TODO: Открывать все фото
+							<button className='absolute z-10 h-full w-full rounded-lg bg-[#041222]/60 text-center text-white'>
+								Ещё {images.slice(9).length} фото
+							</button>
+						)}
+						<Image
+							src={image}
+							alt={`image-${index}`}
+							fill
+							className='rounded-lg object-cover'
+						/>
+					</div>
+				))}
+			</div>
+		</div>
+	)
+}

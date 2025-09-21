@@ -9,3 +9,4 @@ export * from './breadcrumbs'
 export * from './form'
 export * from './formInput'
 export * from "./textarea"
+export * from "./lotTabItem"

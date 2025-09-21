@@ -8,7 +8,7 @@ export interface ILot {
 	region: string
 	city: string
 	price: number
-	currentPrice?: number
+	currentPrice: null | number
 	// CAR INFO
 	vin: string
 	frame: string
@@ -26,6 +26,7 @@ export interface ILot {
 	comment?: string
 	photos: string[]
 	name: string
+	damages?: string
 
 	seller?: IUser
 	sellerId: string
