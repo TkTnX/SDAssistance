@@ -1,9 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-
 import { DescriptionTab } from './tabs'
-import { cn } from '@/shared/lib'
 import { ILot } from '@/shared/types'
 
 type Props = {

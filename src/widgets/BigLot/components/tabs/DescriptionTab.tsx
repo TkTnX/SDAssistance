@@ -8,7 +8,7 @@ type Props = {
 
 export const DescriptionTab = ({ lot }: Props) => {
 	return (
-		<div className='mt-9 grid grid-cols-2 gap-11'>
+		<div className='mt-9 grid sm:grid-cols-2 sm:gap-11'>
 			<div>
 				<LotTabItem
 					label='Вид страхования'
@@ -65,13 +65,13 @@ export const DescriptionTab = ({ lot }: Props) => {
 				/>
 			</div>
 			{lot.comment && (
-				<div>
+				<div className='mt-4'>
 					<h6 className='text-xl font-bold'>Комментарий</h6>
 					<p className='text-text-1 mt-4'>{lot.comment}</p>
 				</div>
 			)}
 			{lot.damages && (
-				<div>
+				<div className='mt-4'>
 					<h6 className='text-xl font-bold'>Повреждения</h6>
 					<p className='text-text-1 mt-4'>{lot.damages}</p>
 				</div>

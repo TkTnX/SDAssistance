@@ -34,8 +34,8 @@ export interface ILot {
 	auctioneer?: IUser
 	auctioneerId: string
 
-	createdAt: string
-	endsAt: string
+	createdAt: Date
+	endsAt: Date
 }
 
 enum EInsurance {

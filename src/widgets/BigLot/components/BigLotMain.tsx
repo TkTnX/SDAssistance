@@ -2,25 +2,22 @@ import { CalendarDaysIcon, Clock } from 'lucide-react'
 import Link from 'next/link'
 
 import { BigLotImages } from './BigLotImages'
+import { LotBet, Timer } from '@/features'
 import { CAR_ENGINE_TYPES, CAR_GEARBOX } from '@/shared/constants'
 import { findSettings } from '@/shared/helpers'
 import { ILot } from '@/shared/types'
-import { LotBet } from '@/features'
 
 export const BigLotMain = ({ lot }: { lot: ILot }) => {
 	return (
-		<div className='bg-dopolnitelnyy container mt-9 flex items-stretch gap-7 rounded-lg !p-8'>
+		<div className='bg-dopolnitelnyy container mt-9 flex flex-col items-stretch gap-7 rounded-lg !p-2 sm:!p-8 lg:flex-row'>
 			<BigLotImages images={lot.photos} />
 			<div>
-				<div className='flex items-center justify-between'>
+				<div className='flex flex-col justify-between gap-2 sm:flex-row sm:items-center sm:gap-0'>
 					<h4 className='text-text-1 text-3xl font-bold'>
 						{lot.name}
 					</h4>
 					{/* TODO: Сделать отcчёт */}
-					<div className='text-dop-cvet-zelenyy border-dop-cvet-zelenyy flex h-7 items-center gap-1 rounded-full border px-2.5 text-sm font-bold'>
-						<Clock size={14} color='var(--dop-cvet-zelenyy)' />
-						0д 5ч 5мин
-					</div>
+					<Timer time={lot.endsAt} />
 				</div>
 				<p className='mt-6 text-sm text-[#4e5766]'>
 					Продавец:{' '}
@@ -53,7 +50,7 @@ export const BigLotMain = ({ lot }: { lot: ILot }) => {
 						})}
 					</span>
 				</p>
-				<div className='grid grid-cols-2 gap-4 text-sm text-[#4e5766] mt-7'>
+				<div className='mt-7 grid grid-cols-2 gap-4 text-sm text-[#4e5766]'>
 					<p>
 						Год выпуска:{' '}
 						<span className='text-text-1 font-bold'>
@@ -83,7 +80,11 @@ export const BigLotMain = ({ lot }: { lot: ILot }) => {
 						</span>
 					</p>
 				</div>
-				<LotBet lotId={lot.id} price={lot.price} currentPrice={lot.currentPrice} />
+				<LotBet
+					lotId={lot.id}
+					price={lot.price}
+					currentPrice={lot.currentPrice}
+				/>
 			</div>
 		</div>
 	)
