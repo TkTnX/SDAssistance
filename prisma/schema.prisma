@@ -36,12 +36,11 @@ model Lot {
   photos       String[]
   name         String
   damages      String?
-   
-  seller       User          @relation(fields: [sellerId], references: [id], name: "seller")
-  sellerId     String
 
-  auctioneer   User?   @relation(fields: [auctioneerId], references: [id], name: "auctioneer")
-  auctioneerId String?
+  bets Bet[]
+
+  seller   User   @relation(fields: [sellerId], references: [id])
+  sellerId String
 
   createdAt DateTime @default(now())
   endsAt    DateTime
@@ -59,8 +58,22 @@ model User {
 
   role EUserRoles
 
-  lots Lot[] @relation(name: "seller")
-  bids Lot[] @relation(name: "auctioneer")
+  lots Lot[]
+  bets Bet[]
+}
+
+model Bet {
+  id String @id @default(uuid())
+
+  bet Int
+
+  lot   Lot    @relation(fields: [lotId], references: [id])
+  lotId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  createdAt DateTime @default(now())
 }
 
 enum EInsurance {

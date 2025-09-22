@@ -1,8 +1,9 @@
 'use client'
 
-import { cn } from '@/shared/lib'
 import { Clock } from 'lucide-react'
 import { useEffect, useState } from 'react'
+
+import { cn } from '@/shared/lib'
 
 type Props = {
 	time: Date

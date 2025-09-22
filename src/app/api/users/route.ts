@@ -18,7 +18,7 @@ export async function GET() {
 			},
 			include: {
 				lots: true,
-				bids: true
+				bets: true
             },
             omit: {password: true}
 		})

@@ -1,4 +1,4 @@
-import { ILot } from "."
+import { IBet, ILot } from "."
 
 export interface IUser {
 	id: string
@@ -12,7 +12,7 @@ export interface IUser {
 	role: EUserRoles
 
 	lots: ILot[]
-	bids: ILot[]
+	bets: IBet[]
 }
 
 enum EUserRoles {

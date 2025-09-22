@@ -54,3 +54,6 @@ export const SellerLot = ({ price, currentPrice, lotId }: Props) => {
 		</>
 	)
 }
+
+
+// TODO: Сделать модель bet, которая будет создаваться при ставке 
