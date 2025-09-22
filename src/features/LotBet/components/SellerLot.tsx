@@ -1,12 +1,13 @@
 import { formatPrice } from '@/shared/helpers'
+import { IBet } from '@/shared/types'
 
 type Props = {
 	price: number
 	currentPrice: null | number
-	lotId: string
+	bets: IBet[] | null
 }
 
-export const SellerLot = ({ price, currentPrice, lotId }: Props) => {
+export const SellerLot = ({ price, currentPrice, bets }: Props) => {
 	return (
 		<>
 			<div className='flex flex-col gap-2.5'>
@@ -14,7 +15,7 @@ export const SellerLot = ({ price, currentPrice, lotId }: Props) => {
 				<p className='text-osnovnoy text-2xl font-bold'>
 					{currentPrice ? (
 						<>
-							{formatPrice(currentPrice)}
+							{formatPrice(currentPrice)}{' '}
 							<span className='text-xl line-through opacity-50'>
 								{formatPrice(price)}
 							</span>
@@ -24,36 +25,59 @@ export const SellerLot = ({ price, currentPrice, lotId }: Props) => {
 					)}
 				</p>
 			</div>
-			{/* TODO: Получать bets и выводить их тут */}
 			<div className='mt-9'>
 				<p className='border-b pb-3 text-xs text-[#4e5766]'>
 					Последние ставки:{' '}
 				</p>
 
 				<div className='mt-5 flex flex-col gap-4'>
-					<div className='flex flex-wrap gap-2 border-b border-dashed vsm:border-0 pb-2 vsm:pb-0 items-center justify-between text-xs'>
-						<p className='text-[#4e5766]'>Участник 8</p>
-						<p>18.12.2021 18:44</p>
-						<p className='font-bold'>{formatPrice(1405000)}</p>
-					</div>
-					<div className='flex flex-wrap gap-2 border-b border-dashed vsm:border-0 pb-2 vsm:pb-0 items-center justify-between text-xs'>
-						<p className='text-[#4e5766]'>Участник 7</p>
-						<p>18.12.2021 18:44</p>
-						<p className='font-bold'>{formatPrice(1405000)}</p>
-					</div>
-					<div className='flex flex-wrap gap-2 border-b border-dashed vsm:border-0 pb-2 vsm:pb-0 items-center justify-between text-xs'>
-						<p className='text-[#4e5766]'>Участник 6</p>
-						<p>18.12.2021 18:44</p>
-						<p className='font-bold'>{formatPrice(1405000)}</p>
-					</div>
+					{bets ? (
+						bets.map(bet => (
+							<div
+								key={bet.id}
+								className='vsm:border-0 vsm:pb-0 flex flex-wrap items-center justify-between gap-2 border-b border-dashed pb-2 text-xs'
+							>
+								<p className='text-[#4e5766]'>
+									{bet.user?.name}
+								</p>
+								<p>
+									{new Date(bet.createdAt).toLocaleDateString(
+										'ru-RU',
+										{
+											day: '2-digit',
+											month: '2-digit',
+											year: 'numeric'
+										}
+									)}{' '}
+									{new Date(bet.createdAt).toLocaleTimeString(
+										'ru-RU',
+										{ minute: '2-digit', hour: '2-digit' }
+									)}
+								</p>
+								<p className='font-bold'>
+									{formatPrice(bet.bet)}
+								</p>
+							</div>
+						))
+					) : (
+						<p>Ставок нет</p>
+					)}
 				</div>
-				<button className='border-osnovnoy hover:bg-osnovnoy mt-6 w-full rounded-lg border py-3.5 text-center text-sm hover:text-white'>
-					Посмотреть все ставки
-				</button>
+				{bets && bets.length > 3 && (
+					<button className='border-osnovnoy hover:bg-osnovnoy mt-6 w-full rounded-lg border py-3.5 text-center text-sm hover:text-white'>
+						Посмотреть все ставки
+					</button>
+				)}
+				{/* TODO: Завершение лота */}
+				{bets && (
+					<button className='border-osnovnoy hover:bg-osnovnoy mt-6 w-full rounded-lg border px-4 py-3.5 text-center text-sm hover:text-white'>
+						Завершить лот
+						<span className='block font-bold'>
+							Лидер: {bets[0].user?.name}
+						</span>
+					</button>
+				)}
 			</div>
 		</>
 	)
 }
-
-
-// TODO: Сделать модель bet, которая будет создаваться при ставке 

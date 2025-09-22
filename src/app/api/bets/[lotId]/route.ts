@@ -3,6 +3,41 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { authOptions, prisma } from '@/shared/lib'
 
+export async function GET(
+	req: NextRequest,
+	{ params }: { params: Promise<{ lotId: string }> }
+) {
+	try {
+		const lotId = (await params).lotId
+		const bets = await prisma.bet.findMany({
+			where: {
+				lotId
+			},
+			include: {
+				user: {
+					omit: {
+						password: true
+					}
+				}
+			},
+			orderBy: {
+				bet: 'desc'
+			}
+		})
+
+		if (!bets)
+			return NextResponse.json({ message: 'Нет ставок на этот лот!' })
+
+		return NextResponse.json(bets)
+	} catch (error) {
+		console.log(error)
+		return NextResponse.json({
+			message: 'Произошла ошибка при получении ставок',
+			code: 500
+		})
+	}
+}
+
 export async function POST(
 	req: NextRequest,
 	{ params }: { params: Promise<{ lotId: string }> }
@@ -23,7 +58,7 @@ export async function POST(
 		if (!lot)
 			return NextResponse.json({ message: 'Лот не найден', code: 404 })
 
-        // Обновление currentPrice лота
+		// Обновление currentPrice лота
 		await prisma.lot.update({
 			where: { id: lot.id },
 			data: {
@@ -31,7 +66,7 @@ export async function POST(
 			}
 		})
 
-        // Создание новой ставки
+		// Создание новой ставки
 		await prisma.bet.create({
 			data: {
 				bet: newBet,
@@ -44,7 +79,7 @@ export async function POST(
 	} catch (error) {
 		console.log(error)
 		return NextResponse.json({
-			message: 'Произошла ошибка при создании лота',
+			message: 'Произошла ошибка при создании ставки',
 			code: 500
 		})
 	}
