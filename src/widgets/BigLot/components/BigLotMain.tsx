@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { BigLotImages } from './BigLotImages'
 import { LotBet, Timer } from '@/features'
+import { ELotStatuses } from '@/generated/prisma'
 import { CAR_ENGINE_TYPES, CAR_GEARBOX } from '@/shared/constants'
 import { findSettings } from '@/shared/helpers'
 import { ILot } from '@/shared/types'
@@ -80,11 +81,20 @@ export const BigLotMain = ({ lot }: { lot: ILot }) => {
 						</span>
 					</p>
 				</div>
-				<LotBet
-					lotId={lot.id}
-					price={lot.price}
-					currentPrice={lot.currentPrice}
-				/>
+				{lot.status !== ELotStatuses.finished ? (
+					<LotBet
+						lotId={lot.id}
+						price={lot.price}
+						currentPrice={lot.currentPrice}
+					/>
+				) : (
+					<div className=''>
+						<p className='py-4 text-center font-bold'>
+							Лот завершён
+							</p>
+							<p>ID победителя: {lot.winnerId}</p>
+					</div>
+				)}
 			</div>
 		</div>
 	)

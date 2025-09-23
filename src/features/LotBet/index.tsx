@@ -106,7 +106,8 @@ export const LotBet = ({ price, currentPrice, lotId }: Props) => {
 						)}
 					</>
 				) : (
-					<SellerLot
+						<SellerLot
+							lotId={lotId}
 						bets={lotBets}
 						currentPrice={currentPrice}
 						price={price}

@@ -1,3 +1,4 @@
+import { ELotStatuses } from '@/generated/prisma'
 import { IUser } from '.'
 
 export interface ILot {
@@ -27,6 +28,9 @@ export interface ILot {
 	photos: string[]
 	name: string
 	damages?: string
+
+	status: ELotStatuses
+	winnerId: string | null
 
 	seller?: IUser
 	sellerId: string

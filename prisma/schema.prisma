@@ -37,7 +37,9 @@ model Lot {
   name         String
   damages      String?
 
-  bets Bet[]
+  bets     Bet[]
+  status   ELotStatuses @default(available)
+  winnerId String?
 
   seller   User   @relation(fields: [sellerId], references: [id])
   sellerId String
@@ -123,4 +125,9 @@ enum EGearbox {
 enum EUserRoles {
   seller
   auctioneer
+}
+
+enum ELotStatuses {
+  available
+  finished
 }

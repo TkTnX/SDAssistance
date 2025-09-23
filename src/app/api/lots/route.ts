@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { prisma } from '@/shared/lib'
+import { ELotStatuses } from '@/generated/prisma'
 
 export async function GET(req: NextRequest) {
 	try {
@@ -29,6 +30,7 @@ export async function GET(req: NextRequest) {
 			where: {
 				name: search,
 				endsAt: { gt: new Date() },
+				status: ELotStatuses.available,
 				...restParams
 			}
 		})

@@ -1,13 +1,18 @@
+import { SubmitModal } from '@/shared/components'
 import { formatPrice } from '@/shared/helpers'
+import { useLots } from '@/shared/hooks'
 import { IBet } from '@/shared/types'
 
 type Props = {
 	price: number
 	currentPrice: null | number
+	lotId: string
 	bets: IBet[] | null
 }
 
-export const SellerLot = ({ price, currentPrice, bets }: Props) => {
+export const SellerLot = ({ price, currentPrice, lotId, bets }: Props) => {
+	const { onFinish } = useLots()
+
 	return (
 		<>
 			<div className='flex flex-col gap-2.5'>
@@ -68,14 +73,18 @@ export const SellerLot = ({ price, currentPrice, bets }: Props) => {
 						Посмотреть все ставки
 					</button>
 				)}
-				{/* TODO: Завершение лота */}
 				{bets && (
-					<button className='border-osnovnoy hover:bg-osnovnoy mt-6 w-full rounded-lg border px-4 py-3.5 text-center text-sm hover:text-white'>
-						Завершить лот
-						<span className='block font-bold'>
-							Лидер: {bets[0].user?.name}
-						</span>
-					</button>
+					<SubmitModal
+						title='Завершить лот?'
+						onConfirm={() => onFinish(lotId, bets[0].userId)}
+					>
+						<button className='border-osnovnoy hover:bg-osnovnoy mt-6 w-full rounded-lg border px-4 py-3.5 text-center text-sm hover:text-white'>
+							Завершить лот
+							<span className='block font-bold'>
+								Лидер: {bets[0].user?.name}
+							</span>
+						</button>
+					</SubmitModal>
 				)}
 			</div>
 		</>
