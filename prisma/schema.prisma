@@ -57,6 +57,7 @@ model User {
   phone    String    @unique
   birthday DateTime?
   avatar   String?
+  balance Int @default(0)
 
   role EUserRoles
 
@@ -69,7 +70,7 @@ model Bet {
 
   bet Int
 
-  lot   Lot    @relation(fields: [lotId], references: [id])
+  lot   Lot    @relation(fields: [lotId], references: [id], onDelete: Cascade)
   lotId String
 
   user   User   @relation(fields: [userId], references: [id])

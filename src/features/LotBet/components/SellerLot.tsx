@@ -1,4 +1,5 @@
-import { SubmitModal } from '@/shared/components'
+import { BetItem } from './BetItem'
+import { SeeAllBets, SubmitModal } from '@/shared/components/modals'
 import { formatPrice } from '@/shared/helpers'
 import { useLots } from '@/shared/hooks'
 import { IBet } from '@/shared/types'
@@ -37,41 +38,21 @@ export const SellerLot = ({ price, currentPrice, lotId, bets }: Props) => {
 
 				<div className='mt-5 flex flex-col gap-4'>
 					{bets ? (
-						bets.map(bet => (
-							<div
-								key={bet.id}
-								className='vsm:border-0 vsm:pb-0 flex flex-wrap items-center justify-between gap-2 border-b border-dashed pb-2 text-xs'
-							>
-								<p className='text-[#4e5766]'>
-									{bet.user?.name}
-								</p>
-								<p>
-									{new Date(bet.createdAt).toLocaleDateString(
-										'ru-RU',
-										{
-											day: '2-digit',
-											month: '2-digit',
-											year: 'numeric'
-										}
-									)}{' '}
-									{new Date(bet.createdAt).toLocaleTimeString(
-										'ru-RU',
-										{ minute: '2-digit', hour: '2-digit' }
-									)}
-								</p>
-								<p className='font-bold'>
-									{formatPrice(bet.bet)}
-								</p>
-							</div>
-						))
+						bets.map(bet => <BetItem key={bet.id} bet={bet} />)
 					) : (
 						<p>Ставок нет</p>
 					)}
 				</div>
 				{bets && bets.length > 3 && (
-					<button className='border-osnovnoy hover:bg-osnovnoy mt-6 w-full rounded-lg border py-3.5 text-center text-sm hover:text-white'>
-						Посмотреть все ставки
-					</button>
+					<SeeAllBets
+						currentPrice={currentPrice || price}
+						defaultPrice={price}
+						bets={bets}
+					>
+						<button className='border-osnovnoy hover:bg-osnovnoy mt-6 w-full rounded-lg border py-3.5 text-center text-sm hover:text-white'>
+							Посмотреть все ставки
+						</button>
+					</SeeAllBets>
 				)}
 				{bets && (
 					<SubmitModal

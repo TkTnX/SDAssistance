@@ -2,7 +2,7 @@ import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { HeaderMenu, UserButton } from './components'
+import { HeaderMenu, HeaderTotal, UserButton } from './components'
 import { Search } from '@/features'
 
 export const Header = () => {
@@ -22,10 +22,7 @@ export const Header = () => {
 					<Image src='/logo.svg' alt='Лого' width={220} height={28} />
 				</Link>
 			</div>
-			<p className='text-text-2 hidden sm:block'>
-				Проведено торгов:{' '}
-				<span className='text-osnovnoy font-bold'>0</span>
-			</p>
+			<HeaderTotal />
 			<div className='hidden items-center gap-5 lg:flex'>
 				<Search />
 

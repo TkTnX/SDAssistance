@@ -60,11 +60,31 @@ export function useLots() {
 			}
 		}
 	}
+	async function onDelete(lotId: string) {
+		try {
+			const res = await axiosInstance.delete(
+				`/lots/${lotId}/finish`
+			)
+
+			if (res.data.code !== 202) return toast.error(res.data.message)
+
+			router.refresh()
+			return toast.success(res.data.message)
+		} catch (error) {
+			console.log(error)
+			if (isAxiosError(error)) {
+				if (error.response) {
+					toast.error(error.response.data)
+				}
+			}
+		}
+	}
 
 	return {
 		lots,
 		isLoading,
 		error,
-		onFinish
+		onFinish,
+		onDelete
 	}
 }

@@ -60,13 +60,13 @@ export const HeroSlider = ({ activeLots }: Props) => {
 								<li>
 									Начало торгов:{' '}
 									<span className='font-bold'>
-										{formatDate(lot.createdAt)}
+										{formatDate(String(lot.createdAt))}
 									</span>
 								</li>
 								<li>
 									Завершение торгов:{' '}
 									<span className='font-bold'>
-										{formatDate(lot.endsAt)}
+										{formatDate(String(lot.endsAt))}
 									</span>
 								</li>
 							</ul>

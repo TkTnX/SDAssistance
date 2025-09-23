@@ -1,11 +1,11 @@
 import { ELotStatuses } from '@/generated/prisma'
-import { IUser } from '.'
+import { IBet, IUser } from '.'
 
 export interface ILot {
 	id: string
 
 	// DOCS INFO
-	insurance: EInsurance
+	insurance: string
 	region: string
 	city: string
 	price: number
@@ -13,30 +13,29 @@ export interface ILot {
 	// CAR INFO
 	vin: string
 	frame: string
-	carType: ECarTypes
+	carType: string
 	year: number
-	bodyType: ECarBodyTypes
+	bodyType: string
 	color: string
 	mileage: number
 	passport: string
-	engineType: EEngineTypes
+	engineType: string
 	volume: number
 	power: number
-	drive: EDrive
-	gearbox: EGearbox
-	comment?: string
+	drive: string
+	gearbox: string
+	comment: string | null
 	photos: string[]
 	name: string
-	damages?: string
+	damages: string | null
 
-	status: ELotStatuses
+	bets?: IBet[]
+	status: string
 	winnerId: string | null
 
 	seller?: IUser
 	sellerId: string
 
-	auctioneer?: IUser
-	auctioneerId: string
 
 	createdAt: Date
 	endsAt: Date
