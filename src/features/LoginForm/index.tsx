@@ -9,8 +9,10 @@ import { toast } from 'react-toastify'
 
 import { Button, Form, FormInput } from '@/shared/components'
 import { LoginSchema, loginSchema } from '@/shared/schemas'
+import { useUserStore } from '@/shared/stores'
 
 export const LoginForm = () => {
+	const fetchUser = useUserStore(state => state.fetchUser)
 	const form = useForm<LoginSchema>({
 		resolver: zodResolver(loginSchema)
 	})
@@ -26,6 +28,7 @@ export const LoginForm = () => {
 
 			if (res?.status === 200) {
 				toast.success('Успешный вход')
+				await fetchUser()
 				router.push('/profile')
 			} else {
 				toast.error('Ошибка при входе в аккаунт')

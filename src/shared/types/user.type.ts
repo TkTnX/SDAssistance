@@ -8,6 +8,7 @@ export interface IUser {
 	phone: string
 	birthday?: string
 	avatar?: string
+	balance: number
 
 	role: EUserRoles
 

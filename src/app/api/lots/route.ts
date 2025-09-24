@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
 			skip: (page - 1) * limit,
 			orderBy,
 			where: {
-				name: search,
+				name: {contains: search},
 				endsAt: { gt: new Date() },
 				status: ELotStatuses.available,
 				...restParams

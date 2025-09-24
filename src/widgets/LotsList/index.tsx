@@ -1,6 +1,7 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
 
 import { LotsFilters } from './components'
 import { Lot } from '@/entities'
@@ -11,7 +12,15 @@ import { useLots } from '@/shared/hooks'
 export const LotsList = () => {
 	const pathname = usePathname()
 	const isLotsPage = pathname.includes('lots')
-	const { error, isLoading, lots } = useLots()
+	const { error, isLoading, lots, fetchLots } = useLots()
+	const searchParams = useSearchParams()
+	useEffect(() => {
+		const getData = async () => {
+			fetchLots()
+		}
+
+		getData()
+	}, [searchParams])
 
 	if (error) return <p className='error'>{error}</p>
 
@@ -52,7 +61,9 @@ export const LotsList = () => {
 						/>
 					)
 				))}
-			{lots && <Pagination page={lots.page} totalPages={lots.totalPages} />}
+			{lots && (
+				<Pagination page={lots.page} totalPages={lots.totalPages} />
+			)}
 		</section>
 	)
 }

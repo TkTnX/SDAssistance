@@ -17,7 +17,15 @@ export async function GET() {
 				id: session.userId
 			},
 			include: {
-				lots: true,
+				lots: {
+					include: {
+						bets: {
+							include: {
+								user: true
+							}
+						}
+					}
+				},
 				bets: true
 			},
 			omit: { password: true }

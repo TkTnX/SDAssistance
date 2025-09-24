@@ -19,26 +19,22 @@ export function useLots() {
 	const router = useRouter()
 	const searchParams = useSearchParams()
 
-	useEffect(() => {
+	async function fetchLots() {
 		const params = Object.fromEntries(searchParams)
-		const fetchLots = async () => {
-			try {
-				setIsLoading(true)
-				setError(null)
+		try {
+			setIsLoading(true)
+			setError(null)
 
-				const data = await axiosInstance.get('/lots', { params })
+			const data = await axiosInstance.get('/lots', { params })
 
-				setLots(data.data)
-			} catch (error) {
-				console.log(error)
-				setError((error as ErrorType).message)
-			} finally {
-				setIsLoading(false)
-			}
+			setLots(data.data)
+		} catch (error) {
+			console.log(error)
+			setError((error as ErrorType).message)
+		} finally {
+			setIsLoading(false)
 		}
-
-		fetchLots()
-	}, [searchParams])
+	}
 
 	async function onFinish(lotId: string, winnerId: string) {
 		try {
@@ -62,9 +58,7 @@ export function useLots() {
 	}
 	async function onDelete(lotId: string) {
 		try {
-			const res = await axiosInstance.delete(
-				`/lots/${lotId}/finish`
-			)
+			const res = await axiosInstance.delete(`/lots/${lotId}/finish`)
 
 			if (res.data.code !== 202) return toast.error(res.data.message)
 
@@ -85,6 +79,7 @@ export function useLots() {
 		isLoading,
 		error,
 		onFinish,
-		onDelete
+		onDelete,
+		fetchLots
 	}
 }

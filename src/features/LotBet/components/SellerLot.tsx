@@ -1,3 +1,5 @@
+'use client'
+
 import { BetItem } from './BetItem'
 import { SeeAllBets, SubmitModal } from '@/shared/components/modals'
 import { formatPrice } from '@/shared/helpers'
@@ -62,7 +64,7 @@ export const SellerLot = ({ price, currentPrice, lotId, bets }: Props) => {
 						<button className='border-osnovnoy hover:bg-osnovnoy mt-6 w-full rounded-lg border px-4 py-3.5 text-center text-sm hover:text-white'>
 							Завершить лот
 							<span className='block font-bold'>
-								Лидер: {bets[0].user?.name}
+								Лидер: {bets[0]?.user?.name || 'нет'}
 							</span>
 						</button>
 					</SubmitModal>
