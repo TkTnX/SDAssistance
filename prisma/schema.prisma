@@ -55,7 +55,7 @@ model User {
   email    String    @unique()
   password String
   phone    String    @unique
-  birthday DateTime?
+  birthday String?
   avatar   String?
   balance Int @default(0)
 

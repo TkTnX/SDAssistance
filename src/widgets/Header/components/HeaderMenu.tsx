@@ -17,6 +17,8 @@ type Props = {
 	children: React.ReactNode
 }
 
+// TODo: Когда авторизован, скрывать кнопки войти / регистрация
+
 export const HeaderMenu = ({ children }: Props) => {
 	const [open, setOpen] = useState(false)
 	const pathname = usePathname()

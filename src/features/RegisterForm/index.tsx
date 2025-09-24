@@ -60,7 +60,6 @@ export const RegisterForm = () => {
 					form={form}
 					label='Имя'
 				/>
-				{/* todo: маска для номера */}
 				<FormInput
 					ref={phoneRef}
 					placeholder='Введите ваш номер телефона'
