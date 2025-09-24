@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { CAR_DRIVE, CAR_ENGINE_TYPES, CAR_GEARBOX } from '@/shared/constants'
-import { findSettings } from '@/shared/helpers'
+import { findSettings, formatPrice } from '@/shared/helpers'
 import { ILot } from '@/shared/types'
 
 type Props = {
@@ -20,8 +20,7 @@ export const Lot = ({ lot }: Props) => {
 					alt={lot.name}
 					fill
 				/>
-				{/* TODO: format price (look at layout) */}
-				<p className='px-2.5 py-1.5 font-bold'>{lot.price} ₽</p>
+				<p className='px-2.5 py-1.5 font-bold'>{formatPrice(lot.price)}</p>
 			</div>
 			<div className='bg-[#f0f2f5] px-5 py-4'>
 				<h4 className='font-bold'>
@@ -33,8 +32,7 @@ export const Lot = ({ lot }: Props) => {
 					</li>
 					<li>
 						Начальная цена:{' '}
-						{/* TODO: format price (look at layout) */}
-						<span className='font-bold'>{lot.price} ₽</span>
+						<span className='font-bold'>{formatPrice(lot.price)}</span>
 					</li>
 				</ul>
 				<ul className='mt-2 flex flex-col flex-wrap gap-y-2 text-xs lg:flex-row lg:items-center lg:justify-center'>

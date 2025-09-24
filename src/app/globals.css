@@ -144,7 +144,11 @@
 }
 
 body {
-	@apply text-osnovnoy;
+	@apply text-osnovnoy flex min-h-screen flex-col;
+}
+
+main {
+	flex: 1;
 }
 
 .container {
@@ -185,5 +189,5 @@ button {
 }
 
 .error {
-	@apply text-red-500 text-center py-10 text-xl;
+	@apply py-10 text-center text-xl text-red-500;
 }

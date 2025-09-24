@@ -24,5 +24,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ['/profile', '/auth/:path', '/lots/create']
+	matcher: ['/profile/:path', '/auth/:path', '/lots/create']
 }

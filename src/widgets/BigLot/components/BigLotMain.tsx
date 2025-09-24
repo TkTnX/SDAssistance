@@ -17,7 +17,6 @@ export const BigLotMain = ({ lot }: { lot: ILot }) => {
 					<h4 className='text-text-1 text-3xl font-bold'>
 						{lot.name}
 					</h4>
-					{/* TODO: Сделать отcчёт */}
 					<Timer time={lot.endsAt} />
 				</div>
 				<p className='mt-6 text-sm text-[#4e5766]'>

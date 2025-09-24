@@ -33,11 +33,9 @@ export const LotBet = ({ price, currentPrice, lotId }: Props) => {
 		}
 	}, [user])
 
-	console.log(lotBets)
 
 	return (
 		<div className='mt-8'>
-			{/* TODO: TEMP */}
 
 			{!isYoursLot && (
 				<div className='rounded-lg bg-white p-7'>

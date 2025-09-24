@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import { SeeAllPhotos } from '@/shared/components'
+
 export const BigLotImages = ({ images }: { images: string[] }) => {
 	return (
 		<div className='flex-1 lg:max-w-[540px]'>
@@ -16,9 +18,11 @@ export const BigLotImages = ({ images }: { images: string[] }) => {
 					<div className='relative h-[74px] w-full' key={index}>
 						{index === 7 && (
 							// TODO: Открывать все фото
-							<button className='absolute z-10 h-full w-full rounded-lg bg-[#041222]/60 text-center text-xs text-white md:text-base'>
-								Ещё {images.slice(9).length} фото
-							</button>
+							<SeeAllPhotos photos={images}>
+								<button className='absolute z-10 h-full w-full rounded-lg bg-[#041222]/60 text-center text-xs text-white md:text-base'>
+									Ещё {images.slice(9).length} фото
+								</button>
+							</SeeAllPhotos>
 						)}
 						<Image
 							src={image}
