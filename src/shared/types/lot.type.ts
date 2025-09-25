@@ -1,5 +1,8 @@
-import { ELotStatuses } from '@/generated/prisma'
-import { IBet, IUser } from '.'
+import { IBet, IUser } from '.';
+
+
+
+
 
 export interface ILot {
 	id: string
@@ -41,12 +44,12 @@ export interface ILot {
 	endsAt: Date
 }
 
-enum EInsurance {
+export enum EInsurance {
 	OSAGO,
 	CASCO
 }
 
-enum ECarTypes {
+export enum ECarTypes {
 	passenger,
 	commercial,
 	motorcycle,
@@ -56,7 +59,7 @@ enum ECarTypes {
 	special
 }
 
-enum ECarBodyTypes {
+export enum ECarBodyTypes {
 	jeep,
 	coupe,
 	hatchback,
@@ -67,20 +70,20 @@ enum ECarBodyTypes {
 	pickup
 }
 
-enum EEngineTypes {
+export enum EEngineTypes {
 	petrol,
 	diesel,
 	electric,
 	hybrid
 }
 
-enum EDrive {
+export enum EDrive {
 	front,
 	rear,
 	all
 }
 
-enum EGearbox {
+export enum EGearbox {
 	automatic,
 	manual
 }

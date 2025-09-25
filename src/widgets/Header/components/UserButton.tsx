@@ -23,7 +23,7 @@ export const UserButton = () => {
 		}
 
 		getUser()
-	}, [])
+	}, [fetchUser])
 
 	return !user ? (
 		<LinkMain href={'/auth/login'} text='Войти' />

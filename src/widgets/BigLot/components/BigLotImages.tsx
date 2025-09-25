@@ -17,7 +17,6 @@ export const BigLotImages = ({ images }: { images: string[] }) => {
 				{images.slice(1, 9).map((image, index) => (
 					<div className='relative h-[74px] w-full' key={index}>
 						{index === 7 && (
-							// TODO: Открывать все фото
 							<SeeAllPhotos photos={images}>
 								<button className='absolute z-10 h-full w-full rounded-lg bg-[#041222]/60 text-center text-xs text-white md:text-base'>
 									Ещё {images.slice(9).length} фото

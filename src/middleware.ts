@@ -1,22 +1,33 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { getToken } from 'next-auth/jwt'
+import { type NextRequest, NextResponse } from 'next/server'
+
+import { EUserRoles } from '@/generated/prisma'
 
 const onlyWithoutAuth = ['/auth/register', '/auth/login']
 const withAuth = ['/profile', '/lots/create']
+const onlyForSeller = ['/profile/lots', '/lots/create', '/profile/balance']
 
-export function middleware(request: NextRequest) {
-	const token =
-		request.cookies.get('next-auth.session-token') ??
-		request.cookies.get('__Secure-next-auth.session-token') ??
-		request.cookies.get('__Host-next-auth.session-token')
+const secret = process.env.NEXTAUTH_SECRET
+
+export async function middleware(req: NextRequest) {
+	const token = await getToken({ req, secret })
+
+	const isSeller = token?.role === EUserRoles.seller
 
 	for (const item of withAuth) {
-		if (request.nextUrl.pathname.startsWith(item) && !token) {
-			return NextResponse.redirect(new URL('/', request.url))
+		if (req.nextUrl.pathname.startsWith(item) && !token) {
+			return NextResponse.redirect(new URL('/', req.url))
 		}
 	}
 	for (const item of onlyWithoutAuth) {
-		if (request.nextUrl.pathname.startsWith(item) && token) {
-			return NextResponse.redirect(new URL('/', request.url))
+		if (req.nextUrl.pathname.startsWith(item) && token) {
+			return NextResponse.redirect(new URL('/', req.url))
+		}
+	}
+
+	for (const item of onlyForSeller) {
+		if (req.nextUrl.pathname.startsWith(item) && !isSeller) {
+			return NextResponse.redirect(new URL('/', req.url))
 		}
 	}
 

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import { SORT_BY } from '@/shared/constants'
 import { cn } from '@/shared/lib'

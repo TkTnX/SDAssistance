@@ -1,3 +1,5 @@
+import { Suspense } from 'react'
+
 import { LinkMain } from '@/shared/components'
 import { BiddingInfo, Hero, Instruction, LotsList } from '@/widgets'
 
@@ -13,7 +15,9 @@ export default function Home() {
 					text='Зарегистрироваться'
 				/>
 			</div>
-			<LotsList />
+			<Suspense>
+				<LotsList />
+			</Suspense>
 			<BiddingInfo />
 			<Instruction />
 		</>

@@ -4,9 +4,8 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
 import { LotsFilters } from './components'
-import { Lot } from '@/entities'
 import { Pagination } from '@/features'
-import { Button, LinkMain, Skeleton } from '@/shared/components'
+import { Button, LinkMain, Lot, Skeleton } from '@/shared/components'
 import { useLots } from '@/shared/hooks'
 
 export const LotsList = () => {
@@ -20,7 +19,7 @@ export const LotsList = () => {
 		}
 
 		getData()
-	}, [searchParams])
+	}, [fetchLots, searchParams])
 
 	if (error) return <p className='error'>{error}</p>
 
